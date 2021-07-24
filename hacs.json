@@ -1,0 +1,7 @@
+{
+    "name": "MyCryptoWallet",
+    "render_readme": true,
+    "domains": ["sensor"],
+    "homeassistant": "2021.07.1",
+    "iot_class": ["Local Polling"]
+}

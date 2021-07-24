@@ -1,0 +1,17 @@
+{
+  "domain": "mycryptowallet",
+  "name": "MyCryptoWallet",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/mycryptowallet",
+  "requirements": [
+    "debankpy==0.0.1"
+  ],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "codeowners": [
+    "@gtdiehl"
+  ],
+  "iot_class": "cloud_polling"
+}
