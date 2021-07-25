@@ -42,7 +42,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     polling_interval = 10
     session = AsyncClient()
 
-    api = Debank("0x87cfD519E3c8ee58c0150B6181c282bD72e3806D", session)
+    api = Debank(entry.data["name"], session)
 
     coordinator = MyCryptoWalletUpdater(
         hass,
