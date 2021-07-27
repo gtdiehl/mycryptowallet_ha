@@ -29,7 +29,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         entity = MyCryptoWalletSensor(
             coordinator=coordinator,
             entity=ent,
-            name="Balance",
+            name=ent,
         )
         entities.append(entity)
 
@@ -75,10 +75,9 @@ class MyCryptoWalletSensor(MyCryptoWalletEntity):
     @property
     def state(self):
         """Return the state of the sensor."""
-        _LOGGER.debug(self.coordinator.data["sensors"][self._ent])
-        return self.coordinator.data["sensors"][self._ent]
+        return self.coordinator.data["sensors"][self._ent]["balance"]
 
     @property
     def name(self):
         """Return the name of the sensor."""
-        return "My Crypto Wallet Balance"
+        return "My Crypto Wallet " + self._name

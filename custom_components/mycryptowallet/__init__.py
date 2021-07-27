@@ -97,11 +97,9 @@ class MyCryptoWalletUpdater(DataUpdateCoordinator):
         """Fetch sensors from Wallet cloud endpoints"""
 
         sensors = {}
-        
 
         await self.api.connect()
         await self.api.update()
-        #sensors["sensors"]["balance"] = self.api.getDefiWalletBalance()
         sensors["sensors"] = self.api.getDefiWalletItems()
         for sensor in sensors["sensors"]:
             if sensor not in self.sensorlist:
