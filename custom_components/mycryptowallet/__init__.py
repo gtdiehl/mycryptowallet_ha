@@ -84,6 +84,7 @@ class MyCryptoWalletUpdater(DataUpdateCoordinator):
 
     def __init__(self, hass: HomeAssistant, api: str, name: str, update_interval: int):
         self.api = api
+        self.sensorlist = {}
 
         super().__init__(
             hass=hass,
@@ -96,11 +97,18 @@ class MyCryptoWalletUpdater(DataUpdateCoordinator):
         """Fetch sensors from Wallet cloud endpoints"""
 
         sensors = {}
-        sensors["sensors"] = {}
+        
 
         await self.api.connect()
         await self.api.update()
-        sensors["sensors"]["balance"] = self.api._wallet.getBalance()
+        #sensors["sensors"]["balance"] = self.api.getDefiWalletBalance()
+        sensors["sensors"] = self.api.getDefiWalletItems()
+        for sensor in sensors["sensors"]:
+            if sensor not in self.sensorlist:
+                to_add = {
+                    "entity": sensor,
+                    "name": sensors["sensors"][sensor],
+                }
 
         return sensors
 
