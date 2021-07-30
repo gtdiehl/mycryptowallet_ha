@@ -65,7 +65,10 @@ class MyCryptoWalletSensor(MyCryptoWalletEntity):
     @property
     def device_state_attributes(self):
         """Return the state attributes of the device."""
-        return None
+        if "price" in self.coordinator.data["sensors"][self._ent]:
+            return {"Price": self.coordinator.data["sensors"][self._ent]["price"]}
+        else:
+            return None
 
     @property
     def unit_of_measurement(self):
