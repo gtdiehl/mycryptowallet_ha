@@ -14,9 +14,10 @@ from homeassistant.const import (
     CURRENCY_DOLLAR,
     DEVICE_CLASS_MONETARY,
 )
-from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
+from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT, SensorEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, PlatformNotReady
+from homeassistant.helpers import entity, entity_registry, update_coordinator
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
@@ -117,10 +118,8 @@ class MyCryptoWalletUpdater(DataUpdateCoordinator):
         return sensors
 
 
-class MyCryptoWalletEntity(CoordinatorEntity):
+class MyCryptoWalletEntity(update_coordinator.CoordinatorEntity, SensorEntity):
     """Defines the base Crypto Wallet entity."""
-
-    device_class = DEVICE_CLASS_MONETARY
 
     def __init__(self, coordinator: MyCryptoWalletUpdater, entity, name):
         """Initialize the IoTaWatt Entity."""
@@ -130,6 +129,7 @@ class MyCryptoWalletEntity(CoordinatorEntity):
         self._name = name
         self._icon = "mdi:currency-usd"
         self._attr_unit_of_measurement = CURRENCY_DOLLAR
+        self._attr_device_class = DEVICE_CLASS_MONETARY
         self._attr_state_class = STATE_CLASS_MEASUREMENT
 
     @property
