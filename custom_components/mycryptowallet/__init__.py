@@ -8,7 +8,13 @@ from debankpy.debank import Debank
 from httpx import AsyncClient
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_SCAN_INTERVAL, DEVICE_CLASS_ENERGY
+from homeassistant.const import (
+    CONF_SCAN_INTERVAL,
+    DEVICE_CLASS_ENERGY,
+    CURRENCY_DOLLAR,
+    DEVICE_CLASS_MONETARY,
+)
+from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, PlatformNotReady
 from homeassistant.helpers.update_coordinator import (
@@ -114,7 +120,7 @@ class MyCryptoWalletUpdater(DataUpdateCoordinator):
 class MyCryptoWalletEntity(CoordinatorEntity):
     """Defines the base Crypto Wallet entity."""
 
-    device_class = DEVICE_CLASS_ENERGY
+    device_class = DEVICE_CLASS_MONETARY
 
     def __init__(self, coordinator: MyCryptoWalletUpdater, entity, name):
         """Initialize the IoTaWatt Entity."""
@@ -122,7 +128,9 @@ class MyCryptoWalletEntity(CoordinatorEntity):
 
         self._entity = entity
         self._name = name
-        self._icon = DEFAULT_ICON
+        self._icon = "mdi:currency-usd"
+        self._attr_unit_of_measurement = CURRENCY_DOLLAR
+        self._attr_state_class = STATE_CLASS_MEASUREMENT
 
     @property
     def name(self) -> str:

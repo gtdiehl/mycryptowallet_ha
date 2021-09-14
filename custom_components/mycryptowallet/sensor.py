@@ -71,14 +71,9 @@ class MyCryptoWalletSensor(MyCryptoWalletEntity):
             return None
 
     @property
-    def unit_of_measurement(self):
-        """Return the unit of measurement of this entity, if any."""
-        return None
-
-    @property
     def state(self):
         """Return the state of the sensor."""
-        return self.coordinator.data["sensors"][self._ent]["balance"]
+        return self.coordinator.data["sensors"][self._ent]["value"]
 
     @property
     def name(self):
